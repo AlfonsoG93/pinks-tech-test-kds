@@ -1,8 +1,14 @@
-import { Rider as RiderProps } from "@/dtos/Rider.dto";
 import s from "./Rider.module.scss";
+
+export type RiderProps = {
+  orderWanted: string;
+  pickup: (orderId: string) => void;
+};
+
 export default function Rider(props: RiderProps) {
+  const { pickup, orderWanted }= props;
   return (
-    <div onClick={() => props.pickup(props.orderWanted)} className={s["pk-rider__container"]}>
+    <div onClick={() => pickup(orderWanted)} className={s["pk-rider__container"]}>
       <div className={s["pk-rider__order"]}>
         <b>{props.orderWanted} !!</b>
       </div>

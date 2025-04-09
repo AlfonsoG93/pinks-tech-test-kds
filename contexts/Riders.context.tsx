@@ -13,6 +13,7 @@ import {OrderState} from "@/enums/OrderState";
 
 export type RidersContextProps = {
   riders: Array<Rider>;
+  handlePickup: (orderId: string) => void
 };
 
 export const RidersContext = createContext<RidersContextProps>(
@@ -54,7 +55,6 @@ export function RidersProvider(props: RidersProviderProps) {
       ...prev,
       {
         orderWanted: orderId,
-        pickup: () => handlePickup(orderId),
       },
     ]);
   };
@@ -88,7 +88,7 @@ export function RidersProvider(props: RidersProviderProps) {
     processedOrders.current.delete(orderId);
   };
   
-  const context = { riders };
+  const context = { riders, handlePickup };
   
   return (
       <RidersContext.Provider value={context}>
