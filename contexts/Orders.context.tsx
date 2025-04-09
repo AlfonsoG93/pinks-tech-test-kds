@@ -1,21 +1,16 @@
-import { Order } from "@/dtos/Order.dto";
-import { OrderOrchestrator } from "@/lib";
-import {
-  ReactNode,
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import {Order} from "@/dtos/Order.dto";
+import {OrderOrchestrator} from "@/lib";
+import {createContext, ReactNode, useContext, useEffect, useState,} from "react";
+import {OrderState} from "@/enums/OrderState";
 
 export type OrdersContextProps = {
   orders: Array<Order>;
-  pickup: (order: Order) => void;
+  pickup: (orderId: string) => void;
+  updateOrderState: (orderId: string, newState: OrderState) => void;
 };
 
 export const OrdersContext = createContext<OrdersContextProps>(
-  // @ts-ignore
-  {}
+  {} as OrdersContextProps
 );
 
 export type OrdersProviderProps = {
@@ -28,20 +23,32 @@ export function OrdersProvider(props: OrdersProviderProps) {
   useEffect(() => {
     const orderOrchestrator = new OrderOrchestrator();
     const listener = orderOrchestrator.run();
-    listener.on("order", (order) => {
-      setOrders((prev) => [...prev, order]);
-    });
+    listener.on("order", handleNewOrder);
+    //Cleanup listener
+    return () => {
+      listener.off("order", handleNewOrder)
+    }
   }, []);
-
-  const pickup = (order: Order) => {
-    alert(
-      "necesitamos eliminar del kanban a la orden recogida! Rapido! antes que nuestra gente de tienda se confunda!"
-    );
+  
+  // move functionality of listener callback here for readability
+  const handleNewOrder = (order: Order) => {
+    setOrders((prev) => [...prev, order]);
+  };
+  
+  const pickup = (orderId: string): void => {
+     updateOrderState(orderId, OrderState.DELIVERED);
+  };
+  
+  const updateOrderState = (orderId: string, newState: OrderState) => {
+    setOrders(prev => prev.map(order => {
+      return order.id === orderId ? {...order, state: newState} : order;
+    }));
   };
 
   const context = {
     orders,
     pickup,
+    updateOrderState,
   };
 
   return (
