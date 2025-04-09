@@ -7,6 +7,7 @@ export type OrdersContextProps = {
   orders: Array<Order>;
   pickup: (orderId: string) => void;
   updateOrderState: (orderId: string, newState: OrderState) => void;
+  getOrderById: (orderId: string) => Order | undefined
 };
 
 export const OrdersContext = createContext<OrdersContextProps>(
@@ -45,10 +46,14 @@ export function OrdersProvider(props: OrdersProviderProps) {
     }));
   };
 
+  const getOrderById = (orderId:  string) => {
+    return orders.find((o) => o.id === orderId);
+  }
   const context = {
     orders,
     pickup,
     updateOrderState,
+    getOrderById,
   };
 
   return (

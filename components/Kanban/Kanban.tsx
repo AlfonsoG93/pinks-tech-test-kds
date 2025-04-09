@@ -16,20 +16,24 @@ export default function Kanban() {
 
   return (
     <section className={s["pk-kanban"]}>
-      <Column
-          title={orderLabels[OrderState.PENDING]}
-          orders={getOrdersByState(OrderState.PENDING)}
-          onClick={advanceOrder(OrderState.IN_PROGRESS)}
-      />
-      <Column
-          title={orderLabels[OrderState.IN_PROGRESS]}
-          orders={getOrdersByState(OrderState.IN_PROGRESS)}
-          onClick={advanceOrder(OrderState.READY)}
-      />
-      <Column
-          title={orderLabels[OrderState.READY]}
-          orders={getOrdersByState(OrderState.READY)}
-      />
+        <Column
+            title={orderLabels[OrderState.PENDING]}
+            orders={getOrdersByState(OrderState.PENDING)}
+            onClick={advanceOrder(OrderState.IN_PROGRESS)}
+        />
+        <Column
+            title={orderLabels[OrderState.IN_PROGRESS]}
+            orders={getOrdersByState(OrderState.IN_PROGRESS)}
+            onClick={advanceOrder(OrderState.READY)}
+        />
+        <Column
+            title={orderLabels[OrderState.READY]}
+            orders={getOrdersByState(OrderState.READY)}
+        />
+        <Column
+            title={orderLabels[OrderState.DELIVERED]}
+            orders={getOrdersByState(OrderState.DELIVERED)}
+        />
     </section>
   );
 }
