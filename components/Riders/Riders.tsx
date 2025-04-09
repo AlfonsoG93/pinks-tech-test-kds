@@ -9,7 +9,7 @@ export default function Riders() {
       <div className={s["pk-riders"]}>
         <h3>Riders:</h3>
         {riders.map((rider) => (
-          <Rider {...rider} />
+          <Rider key={`rider-oder-${rider.orderWanted}`} {...rider} />
         ))}
       </div>
     </section>
