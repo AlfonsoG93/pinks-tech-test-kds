@@ -4,7 +4,7 @@ import { Order } from "@/dtos/Order.dto";
 export type ColumnProps = {
   orders: Array<Order>;
   title: string;
-  onClick?: (order: Order) => void;
+  onClick?: (order: string) => void;
 };
 
 export default function Column(props: ColumnProps) {
@@ -15,8 +15,9 @@ export default function Column(props: ColumnProps) {
       </div>
       {props.orders.map((order) => (
         <div
-          onClick={() => props.onClick && props.onClick(order)}
-          className={s["pk-card"]}
+            key={order.id}
+            onClick={() => props.onClick && props.onClick(order.id)}
+            className={s["pk-card"]}
         >
           <div>
             <span>
@@ -24,8 +25,8 @@ export default function Column(props: ColumnProps) {
             </span>
           </div>
           <div>
-            {order.items.map((item) => (
-              <div></div>
+            {order.items.map((_) => (
+                <div></div>
             ))}
           </div>
         </div>
