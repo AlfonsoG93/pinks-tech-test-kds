@@ -9,17 +9,13 @@ export default function Riders() {
   const { riders, handlePickup } = useRiders();
   const [exitingRiders, setExitingRiders] = useState<string[]>([]);
   
-  const onPickup = (orderId?: string) => {
-      if (orderId) {
-          setExitingRiders((prev) => [...prev, orderId]);
-          
-          setTimeout(() => {
-              handlePickup(orderId);
-              setExitingRiders((prev) => prev.filter((id) => id !== orderId));
+  const onPickup = (orderId: string) => {
+      setExitingRiders((prev) => [...prev, orderId]);
+      
+      setTimeout(() => {
+          handlePickup(orderId);
+          setExitingRiders((prev) => prev.filter((id) => id !== orderId));
           }, 800); // Match SCSS duration
-      } else {
-          console.log("No order available, No Pickup to be done.");
-      }
     };
   return (
     <section className={s["pk-riders__container"]}>

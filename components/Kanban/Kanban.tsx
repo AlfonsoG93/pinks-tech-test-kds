@@ -40,6 +40,7 @@ export default function Kanban() {
                 state={state}
                 orders={getOrdersByState(state)}
                 onClick={advanceOrder(nextState)}
+                onDrop={updateOrderState}
             />
         );
     };

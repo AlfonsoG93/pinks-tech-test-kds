@@ -2,9 +2,10 @@ import s from "./Rider.module.scss";
 import {Order} from "@/dtos/Order.dto";
 import {orderColors} from "@/constants/OrdersColors";
 import {orderLabels} from "@/constants/OrderLabels";
+import {OrderState} from "@/enums/OrderState";
 
 export type RiderProps = {
-  pickup: (orderId?: string) => void;
+  pickup: (orderId: string) => void;
   order?: Order
   isExiting: boolean
 };
@@ -13,7 +14,12 @@ export default function Rider(props: RiderProps) {
   const { pickup, order, isExiting } = props;
   
   return (
-    <div onClick={()=>pickup(order?.id)} className={`${s["pk-rider__container"]}  ${isExiting ? s["pk-rider--exit"] : ""}`}>
+    <div onClick={()=> {
+      if (order && order.state == OrderState.READY) pickup(order?.id);
+      else {
+        console.log("No order available, No Pickup to be done.");
+      }
+    }} className={`${s["pk-rider__container"]}  ${isExiting ? s["pk-rider--exit"] : ""}`}>
       <div className={s["pk-rider__order"]}>
         {order ? (
             <>

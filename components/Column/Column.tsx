@@ -7,11 +7,23 @@ export type ColumnProps = {
   orders: Array<Order>;
   state: OrderState
   onClick?: (order: string) => void;
+  onDrop?: (order: string, state: OrderState) => void;
 };
 
 export default function Column(props: ColumnProps) {
   return (
-    <div className={s["pk-column"]}>
+    <div className={`${s["pk-column"]} ${props.state === OrderState.DELIVERED ? s["pk-column--disabled-drop"] : ""}`}
+         onDragOver={(e) => {
+             if (props.state !== OrderState.DELIVERED) {
+                 e.preventDefault();
+             }
+         }}
+         onDrop={(e) => {
+             if (props.state === OrderState.DELIVERED) return;
+             const orderId = e.dataTransfer.getData("text/plain");
+             props.onDrop?.(orderId, props.state);
+         }}
+    >
       <div className={s["pk-column__title"]}>
         <h3>{orderLabels[props.state]}</h3>
           <div
@@ -22,6 +34,10 @@ export default function Column(props: ColumnProps) {
       {props.orders.map((order) => (
         <div
             key={order.id}
+            draggable
+            onDragStart={(e) => {
+              e.dataTransfer.setData("text/plain", order.id);
+            }}
             onClick={() => props.onClick && props.onClick(order.id)}
             className={s["pk-card"]}
         >

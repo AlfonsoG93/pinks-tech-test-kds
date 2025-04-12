@@ -34,6 +34,10 @@
     }
   }
 }
+.pk-column--disabled-drop {
+  opacity: 0.5;
+  pointer-events: none;
+}
 
 .pk-card {
   width: 100%;
