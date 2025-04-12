@@ -14,12 +14,20 @@ export default function Rider(props: RiderProps) {
   const { pickup, order, isExiting } = props;
   
   return (
-    <div onClick={()=> {
-      if (order && order.state == OrderState.READY) pickup(order?.id);
-      else {
-        console.log("No order available, No Pickup to be done.");
-      }
-    }} className={`${s["pk-rider__container"]}  ${isExiting ? s["pk-rider--exit"] : ""}`}>
+    <div
+        onClick={()=> {
+          if (order && order.state == OrderState.READY) pickup(order?.id);
+          else {
+            console.log("No order available, No Pickup to be done.");
+          }
+        }}
+        className={
+      `${s["pk-rider__container"]}
+       ${order?.state !== OrderState.READY ? s["pk-rider__container__disabled"] : ""}
+        ${isExiting ?s["pk-rider--exit"] : ""}`
+    }
+        title={order?.state !== OrderState.READY ? "Esperando preparación..." : "Click para recoger"}
+    >
       <div className={s["pk-rider__order"]}>
         {order ? (
             <>

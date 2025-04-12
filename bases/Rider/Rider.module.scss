@@ -43,6 +43,11 @@
       transform: scale(0.98);
       cursor: pointer;
     }
+    &__disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
   }
   &__order {
     position: absolute;
