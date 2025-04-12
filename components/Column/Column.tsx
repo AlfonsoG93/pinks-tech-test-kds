@@ -3,6 +3,7 @@ import { Order } from "@/dtos/Order.dto";
 import {OrderState} from "@/enums/OrderState";
 import {orderLabels} from "@/constants/OrderLabels";
 import {orderColors} from "@/constants/OrdersColors";
+import Card from "@/components/Card";
 export type ColumnProps = {
   orders: Array<Order>;
   state: OrderState
@@ -32,26 +33,11 @@ export default function Column(props: ColumnProps) {
           ></div>
       </div>
       {props.orders.map((order) => (
-        <div
-            key={order.id}
-            draggable
-            onDragStart={(e) => {
-              e.dataTransfer.setData("text/plain", order.id);
-            }}
-            onClick={() => props.onClick && props.onClick(order.id)}
-            className={s["pk-card"]}
-        >
-          <div>
-            <span>
-              orden: <b>{order.id}</b>
-            </span>
-          </div>
-          <div>
-            {order.items.map((_) => (
-                <div></div>
-            ))}
-          </div>
-        </div>
+        <Card
+            key={`oder-card-${order.id}`}
+            order={order}
+            onClick={() => props.onClick?.(order.id)}
+        />
       ))}
     </div>
   );

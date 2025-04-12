@@ -38,17 +38,3 @@
   opacity: 0.5;
   pointer-events: none;
 }
-
-.pk-card {
-  width: 100%;
-  background-color: #fff;
-  border: 1px solid $gray-1000;
-  border-radius: 12px;
-  height: 100px;
-  padding: 12px;
-  cursor: pointer;
-  &:hover {
-    transform: scale(0.99);
-    background-color: #f5f5f5;
-  }
-}
