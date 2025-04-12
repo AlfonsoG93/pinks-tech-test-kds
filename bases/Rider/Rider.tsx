@@ -1,5 +1,7 @@
 import s from "./Rider.module.scss";
 import {Order} from "@/dtos/Order.dto";
+import {orderColors} from "@/constants/OrdersColors";
+import {orderLabels} from "@/constants/OrderLabels";
 
 export type RiderProps = {
   pickup: (orderId: string) => void;
@@ -20,7 +22,19 @@ export default function Rider(props: RiderProps) {
   return (
     <div onClick={handlePickUpClick} className={s["pk-rider__container"]}>
       <div className={s["pk-rider__order"]}>
-        <b>{order?.id  ?? "Sin Orden"} !!</b>
+        {order ? (
+            <>
+              <span
+                  className={s["pk-rider__order__dot"]}
+                  style={{ backgroundColor: orderColors[order.state] }}
+                  aria-label={orderLabels[order.state]}
+                  title={orderLabels[order.state]}
+              />
+              <strong>#{order.id}</strong>
+            </>
+        ) : (
+             "Sin orden"
+         )}
       </div>
       <svg
         className={s["pk-rider"]}

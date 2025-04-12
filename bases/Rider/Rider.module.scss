@@ -31,12 +31,21 @@
   &__order {
     position: absolute;
     top: -5px;
-    right: -35px;
+    right: -50px;
     opacity: 0;
     border-radius: 10px 10px 10px 0px;
     background-color: #f9cc01;
     padding: 10px;
     animation: appear 300ms 1000ms forwards;
+
+    &__dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 6px;
+
+    }
   }
   animation: animation 1000ms;
 }
