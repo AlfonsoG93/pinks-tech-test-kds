@@ -28,11 +28,11 @@ Buscamos un Problem solver! se creativo e inteligente pero astuto; mvp first. Pr
 
 - 1. **Kanban de 4 columnas**: PENDIENTE → EN PREPARACIÓN → LISTO → ENTREGADO
 - 2. **Simulación de riders** con animaciones de entrada y salida
-- 3. **Interacción con riders**: sólo es posible hacer clic si el pedido está LISTO
-- 4  **Drag & drop nativo** entre columnas (excepto "ENTREGADO")
-- 5  **Etiquetas con colores** dinámicos por estado
-- 6  **SCSS Modules** y animaciones personalizadas
-- 7 **React Context API** para manejar el estado global
+- 3. **Interacción con riders**: sólo es posible hacer click si el pedido está LISTO
+- 4. **Drag & drop nativo** entre columnas (excepto "ENTREGADO")
+- 5. **Etiquetas con colores** dinámicos por estado
+- 6. **SCSS Modules** y animaciones personalizadas
+- 7. **React Context API** para manejar el estado global
 
 ---
 
