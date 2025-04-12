@@ -2,10 +2,25 @@ import s from "./Riders.module.scss";
 import Rider from "@/bases/Rider";
 import { useRiders } from "@/contexts/Riders.context";
 import {useOrders} from "@/contexts/Orders.context";
+import {useState} from "react";
 
 export default function Riders() {
   const { getOrderById } = useOrders()
   const { riders, handlePickup } = useRiders();
+  const [exitingRiders, setExitingRiders] = useState<string[]>([]);
+  
+  const onPickup = (orderId?: string) => {
+      if (orderId) {
+          setExitingRiders((prev) => [...prev, orderId]);
+          
+          setTimeout(() => {
+              handlePickup(orderId);
+              setExitingRiders((prev) => prev.filter((id) => id !== orderId));
+          }, 800); // Match SCSS duration
+      } else {
+          console.log("No order available, No Pickup to be done.");
+      }
+    };
   return (
     <section className={s["pk-riders__container"]}>
       <div className={s["pk-riders"]}>
@@ -14,7 +29,8 @@ export default function Riders() {
           <Rider
               key={`rider-oder-${rider.orderWanted}`}
               order={getOrderById(rider.orderWanted)}
-              pickup={handlePickup}
+              pickup={onPickup}
+              isExiting={exitingRiders.includes(rider.orderWanted)}
           />
         ))}
       </div>

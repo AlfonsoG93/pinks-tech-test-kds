@@ -16,6 +16,22 @@
     transform: translateY(0px);
   }
 }
+
+@keyframes riderExit {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(400px);
+  }
+}
+
+.pk-rider--exit {
+  animation: riderExit 800ms ease forwards;
+}
+
 .pk-rider {
   height: 100px;
   &__container {

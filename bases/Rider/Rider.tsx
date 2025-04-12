@@ -4,23 +4,16 @@ import {orderColors} from "@/constants/OrdersColors";
 import {orderLabels} from "@/constants/OrderLabels";
 
 export type RiderProps = {
-  pickup: (orderId: string) => void;
+  pickup: (orderId?: string) => void;
   order?: Order
+  isExiting: boolean
 };
 
 export default function Rider(props: RiderProps) {
-  const { pickup, order } = props;
-
-  const handlePickUpClick = () => {
-    if (order) {
-      pickup(order.id)
-    } else {
-      console.log("No order available, No Pickup to be done.");
-    }
-  }
+  const { pickup, order, isExiting } = props;
   
   return (
-    <div onClick={handlePickUpClick} className={s["pk-rider__container"]}>
+    <div onClick={()=>pickup(order?.id)} className={`${s["pk-rider__container"]}  ${isExiting ? s["pk-rider--exit"] : ""}`}>
       <div className={s["pk-rider__order"]}>
         {order ? (
             <>
